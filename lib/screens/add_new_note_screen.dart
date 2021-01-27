@@ -31,68 +31,95 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
     Navigator.of(context).pop();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('New Note'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.save),
-            onPressed: _saveForm,
-          )
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _form,
-          child: ListView(
-            children: <Widget>[
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Title',
-                ),
-                textInputAction: TextInputAction.next,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Please provide a value';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  _editedNote = Note(
-                      id: _editedNote.id,
-                      title: value,
-                      content: _editedNote.content,
-                      dateCreated: _editedNote.dateCreated,
-                      dateUpdated: _editedNote.dateUpdated);
-                },
+  Future<bool> _onWillPop() async {
+    return (await showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('Are you sure?'),
+            content: new Text('Your changes made won\'t be save.'),
+            actions: <Widget>[
+              new FlatButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: new Text('No'),
               ),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Content',
-                ),
-                keyboardType: TextInputType.multiline,
-                minLines: 3,
-                maxLines: 15,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Please provide a value';
-                  }
-
-                  return null;
-                },
-                onSaved: (value) {
-                  _editedNote = _editedNote = Note(
-                      id: _editedNote.id,
-                      title: _editedNote.title,
-                      content: value,
-                      dateCreated: _editedNote.dateCreated,
-                      dateUpdated: _editedNote.dateUpdated);
-                },
+              new FlatButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: new Text('Yes'),
               ),
             ],
+          ),
+        )) ??
+        false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('New Note'),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.save),
+              onPressed: _saveForm,
+            )
+          ],
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _form,
+            child: ListView(
+              children: <Widget>[
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Title',
+                  ),
+                  textInputAction: TextInputAction.next,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'The title cannot be empty';
+                    }
+                    if (value.length > 50) {
+                      return 'The Character count must be less than 50';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _editedNote = Note(
+                        id: _editedNote.id,
+                        title: value,
+                        content: _editedNote.content,
+                        dateCreated: _editedNote.dateCreated,
+                        dateUpdated: _editedNote.dateUpdated);
+                  },
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Content',
+                  ),
+                  keyboardType: TextInputType.multiline,
+                  minLines: 3,
+                  maxLines: 15,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'The content cannot be empty';
+                    }
+
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _editedNote = _editedNote = Note(
+                        id: _editedNote.id,
+                        title: _editedNote.title,
+                        content: value,
+                        dateCreated: _editedNote.dateCreated,
+                        dateUpdated: _editedNote.dateUpdated);
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
