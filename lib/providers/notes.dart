@@ -11,17 +11,7 @@ class Notes with ChangeNotifier {
     return [..._items];
   }
 
-  void addNewNotes(
-    String title,
-    String content,
-  ) {
-    var newNote = Note(
-      title: title,
-      dateCreated: DateTime.now(),
-      content: content,
-      id: DateTime.now().toString(),
-      dateUpdated: DateTime.now(),
-    );
+  void addNewNote(Note newNote) {
     _items.insert(0, newNote);
     notifyListeners();
   }
@@ -30,5 +20,18 @@ class Notes with ChangeNotifier {
     return _items.firstWhere((note) {
       return note.id == id;
     });
+  }
+
+  void updateNote(String id, Note newNote) {
+    final noteIndex = _items.indexWhere((note) => note.id == id);
+    if (noteIndex >= 0) {
+      _items[noteIndex] = newNote;
+      notifyListeners();
+    }
+  }
+
+  void deleteNote(String id) {
+    _items.removeWhere((note) => note.id == id);
+    notifyListeners();
   }
 }
