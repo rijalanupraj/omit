@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 class Note {
-  final int id;
+  final String id;
   final String title;
   final String content;
   final DateTime dateCreated;
