@@ -106,7 +106,10 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
                   textInputAction: TextInputAction.next,
                   validator: (value) {
                     if (value.isEmpty) {
-                      return 'Please provide a value';
+                      return 'The title cannot be empty';
+                    }
+                    if (value.length > 50) {
+                      return 'The Character count must be less than 50';
                     }
                     return null;
                   },
@@ -130,7 +133,7 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
                   maxLines: 15,
                   validator: (value) {
                     if (value.isEmpty) {
-                      return 'Please provide a value';
+                      return 'The content cannot be empty';
                     }
 
                     return null;
