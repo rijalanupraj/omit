@@ -9,6 +9,7 @@ import './screens/tabs_screen.dart';
 import './screens/favorite_notes_screen.dart';
 import './screens/settings_screen.dart';
 import './screens/add_new_note_screen.dart';
+import './screens/edit_note_screen.dart';
 
 void main() {
   return runApp(MyApp());
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
           SettingScreen.routeName: (context) => SettingScreen(),
           FavoriteNotesScreen.routeName: (context) => FavoriteNotesScreen(),
           AddNewNoteScreen.routeName: (context) => AddNewNoteScreen(),
+          EditNoteScreen.routeName: (context) => EditNoteScreen(),
         },
       ),
     );

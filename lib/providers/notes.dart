@@ -38,6 +38,8 @@ class Notes with ChangeNotifier {
       dateUpdated: DateTime.now(),
       title: newNote.title,
     );
+    print(note.id);
+
     _items.insert(0, note);
     notifyListeners();
   }
@@ -51,13 +53,15 @@ class Notes with ChangeNotifier {
   void updateNote(String id, Note newNote) {
     final noteIndex = _items.indexWhere((note) => note.id == id);
     if (noteIndex >= 0) {
+      print(newNote.id);
+      print(newNote.isFavorite);
       Note note = Note(
-        id: newNote.id,
-        content: newNote.content,
-        dateCreated: newNote.dateCreated,
-        dateUpdated: DateTime.now(),
-        title: newNote.title,
-      );
+          id: newNote.id,
+          content: newNote.content,
+          dateCreated: newNote.dateCreated,
+          dateUpdated: DateTime.now(),
+          title: newNote.title,
+          isFavorite: newNote.isFavorite);
       _items[noteIndex] = note;
       notifyListeners();
     }
