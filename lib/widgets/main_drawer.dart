@@ -21,7 +21,7 @@ class MainDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.settings),
             title: Text(
-              'Home',
+              'Notes',
               style: kAppBarListTextStyle,
             ),
             onTap: () {
