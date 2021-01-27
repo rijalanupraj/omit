@@ -1,5 +1,6 @@
 // Package Import
 import 'package:flutter/material.dart';
+import 'package:omit/screens/settings_screen.dart';
 
 // Internal Import
 import './screens/home_screen.dart';
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       initialRoute: HomeScreen.routeName,
       routes: {
         HomeScreen.routeName: (context) => HomeScreen(),
+        SettingScreen.routeName: (context) => SettingScreen(),
       },
     );
   }

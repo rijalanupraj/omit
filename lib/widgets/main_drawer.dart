@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 // Internal Import
 import '../constants.dart';
+import '../screens/settings_screen.dart';
+import '../screens/home_screen.dart';
 
 class MainDrawer extends StatelessWidget {
   @override
@@ -18,10 +20,24 @@ class MainDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.settings),
             title: Text(
+              'Home',
+              style: kAppBarListTextStyle,
+            ),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: Text(
               'Settings',
               style: kAppBarListTextStyle,
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context)
+                  .pushReplacementNamed(SettingScreen.routeName);
+            },
           ),
         ],
       ),
