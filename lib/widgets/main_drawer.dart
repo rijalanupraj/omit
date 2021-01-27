@@ -5,7 +5,6 @@ import 'package:omit/screens/tabs_screen.dart';
 // Internal Import
 import '../constants.dart';
 import '../screens/settings_screen.dart';
-import '../screens/all_notes_screen.dart';
 
 class MainDrawer extends StatelessWidget {
   @override

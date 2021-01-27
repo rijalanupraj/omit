@@ -31,7 +31,14 @@ class Notes with ChangeNotifier {
   }
 
   void addNewNote(Note newNote) {
-    _items.insert(0, newNote);
+    Note note = Note(
+      id: DateTime.now().toString(),
+      content: newNote.content,
+      dateCreated: DateTime.now(),
+      dateUpdated: DateTime.now(),
+      title: newNote.title,
+    );
+    _items.insert(0, note);
     notifyListeners();
   }
 

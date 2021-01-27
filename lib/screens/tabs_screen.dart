@@ -1,7 +1,11 @@
+// External Import
 import 'package:flutter/material.dart';
-import 'package:omit/screens/all_notes_screen.dart';
-import 'package:omit/screens/favorite_notes_screen.dart';
-import 'package:omit/widgets/main_drawer.dart';
+
+// Internal Import
+import '../screens/add_new_note_screen.dart';
+import '../screens/all_notes_screen.dart';
+import '../screens/favorite_notes_screen.dart';
+import '../widgets/main_drawer.dart';
 
 class TabsScreen extends StatefulWidget {
   static const String routeName = '/tabs-screen';
@@ -65,7 +69,9 @@ class _TabsScreenState extends State<TabsScreen> {
             Icons.note_add,
             size: 30,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushNamed(AddNewNoteScreen.routeName);
+          },
         ),
       ),
     );
