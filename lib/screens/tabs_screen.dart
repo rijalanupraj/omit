@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:omit/screens/all_notes_screen.dart';
+import 'package:omit/screens/favorite_notes_screen.dart';
 import 'package:omit/widgets/main_drawer.dart';
 
 class TabsScreen extends StatefulWidget {
@@ -16,7 +17,7 @@ class _TabsScreenState extends State<TabsScreen> {
     super.initState();
     _pages = [
       {'page': AllNotesScreen(), 'title': 'All Notes'},
-      // {'page': FavoritesScreen(widget.favoriteMeals), 'title': 'Favorites'}
+      {'page': FavoriteNotesScreen(), 'title': 'Favorites'}
     ];
   }
 
@@ -57,6 +58,14 @@ class _TabsScreenState extends State<TabsScreen> {
               label: 'Favorites',
             ),
           ],
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: FloatingActionButton(
+          child: Icon(
+            Icons.note_add,
+            size: 30,
+          ),
+          onPressed: () {},
         ),
       ),
     );

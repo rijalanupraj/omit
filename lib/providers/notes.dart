@@ -24,6 +24,12 @@ class Notes with ChangeNotifier {
     return [..._items];
   }
 
+  List<Note> get favoriteItems {
+    return _items.where((note) {
+      return note.isFavorite;
+    }).toList();
+  }
+
   void addNewNote(Note newNote) {
     _items.insert(0, newNote);
     notifyListeners();
