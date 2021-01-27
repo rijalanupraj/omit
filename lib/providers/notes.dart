@@ -2,10 +2,23 @@
 import 'package:flutter/foundation.dart';
 
 // Internal Import
-import '../models/note.dart';
+import '../providers/note.dart';
 
 class Notes with ChangeNotifier {
-  List<Note> _items = [];
+  List<Note> _items = [
+    Note(
+        id: 'jlkldjsf',
+        title: 'This is first note',
+        dateCreated: DateTime.now(),
+        dateUpdated: DateTime.now(),
+        content: 'This is isjdfl jlkjdfslkf ijfoisd'),
+    Note(
+        id: 'jlfsdfsf',
+        title: 'This is second note',
+        dateCreated: DateTime.now(),
+        dateUpdated: DateTime.now(),
+        content: 'fsdf fsdjflk  jfsdjf jlkfjsd lj lkjfds lkj')
+  ];
 
   List<Note> get items {
     return [..._items];
