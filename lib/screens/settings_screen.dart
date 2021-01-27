@@ -1,5 +1,8 @@
+// External Import
 import 'package:flutter/material.dart';
-import 'package:omit/widgets/main_drawer.dart';
+
+// Internal Import
+import '../widgets/main_drawer.dart';
 
 class SettingScreen extends StatefulWidget {
   static const String routeName = '/settings-screen';
