@@ -4,29 +4,14 @@ import 'package:provider/provider.dart';
 
 // Internal Import
 import '../providers/notes.dart';
+import '../providers/note.dart';
 
 class NoteListItem extends StatelessWidget {
-  final String id;
-  final String title;
-  final String content;
-  final DateTime dateCreated;
-  final DateTime dateUpdated;
-  final bool isFavorite;
-
-  const NoteListItem(
-      {Key key,
-      @required this.id,
-      @required this.title,
-      @required this.content,
-      @required this.dateCreated,
-      @required this.dateUpdated,
-      @required this.isFavorite})
-      : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    final currentNote = Provider.of<Note>(context, listen: false);
     return Dismissible(
-      key: ValueKey(id),
+      key: ValueKey(currentNote.id),
       background: Container(
         color: Theme.of(context).errorColor,
         child: Icon(
@@ -65,20 +50,26 @@ class NoteListItem extends StatelessWidget {
         );
       },
       onDismissed: (direction) {
-        Provider.of<Notes>(context, listen: false).deleteNote(id);
+        Provider.of<Notes>(context, listen: false).deleteNote(currentNote.id);
       },
       child: Card(
         margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
         child: Padding(
           padding: EdgeInsets.all(8),
           child: ListTile(
-            title: Text(title),
-            subtitle: Text(content),
-            trailing: IconButton(
-              icon: isFavorite
-                  ? Icon(Icons.favorite)
-                  : Icon(Icons.favorite_border_outlined),
-              onPressed: () {},
+            title: Text(currentNote.title),
+            subtitle: Text(currentNote.content),
+            trailing: Consumer<Note>(
+              builder: (context, note, child) {
+                return IconButton(
+                  icon: note.isFavorite
+                      ? Icon(Icons.favorite)
+                      : Icon(Icons.favorite_border_outlined),
+                  onPressed: () {
+                    note.toggleFavorite();
+                  },
+                );
+              },
             ),
           ),
         ),
