@@ -27,9 +27,4 @@ class Note with ChangeNotifier {
     @required this.dateUpdated,
     this.isFavorite = false,
   });
-
-  // void toggleFavorite() {
-  //   isFavorite = !isFavorite;
-  //   notifyListeners();
-  // }
 }

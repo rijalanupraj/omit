@@ -12,7 +12,8 @@ class AllNotesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Provider.of<Notes>(context).getItem();
-    final loadedNotes = Provider.of<Notes>(context).items;
+    final allNotes = Provider.of<Notes>(context).items;
+    final loadedNotes = List.from(allNotes.reversed);
 
     return ListView.builder(
       itemCount: loadedNotes.length,

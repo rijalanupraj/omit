@@ -26,7 +26,6 @@ class Notes with ChangeNotifier {
   }
 
   void addNewNote(Note newNote) async {
-    getItem();
     DateTime curretDateTime = DateTime.now();
     Note note = Note(
       id: curretDateTime.toString(),
@@ -43,14 +42,12 @@ class Notes with ChangeNotifier {
   }
 
   Note findById(String id) {
-    getItem();
     return _items.firstWhere((note) {
       return note.id == id;
     });
   }
 
   void updateNote(String id, Note newNote) async {
-    getItem();
     final noteIndex = _items.indexWhere((note) => note.id == id);
     if (noteIndex >= 0) {
       Note note = Note(
@@ -72,7 +69,7 @@ class Notes with ChangeNotifier {
     _items.removeAt(noteIndex);
     final box = await Hive.openBox<Note>(kHiveNoteMainLocation);
     await box.deleteAt(noteIndex);
-    getItem();
+    // getItem();
     notifyListeners();
   }
 
@@ -88,8 +85,7 @@ class Notes with ChangeNotifier {
           title: currentNote.title,
           isFavorite: isFavorite);
       final box = await Hive.openBox<Note>(kHiveNoteMainLocation);
-      box.putAt(noteIndex, note);
-      // _items[noteIndex] = note; // Previous update
+      await box.putAt(noteIndex, note);
     }
   }
 }
