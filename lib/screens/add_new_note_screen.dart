@@ -32,14 +32,11 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
   }
 
   Future<bool> _onWillPop() async {
-    if (_editedNote.content == '' && _editedNote.title == '') {
-      return true;
-    }
     return (await showDialog(
           context: context,
           builder: (context) => new AlertDialog(
             title: new Text('Are you sure?'),
-            content: new Text('Your changes made won\'t be save.'),
+            content: new Text('Changes made won\'t be save.'),
             actions: <Widget>[
               new FlatButton(
                 onPressed: () => Navigator.of(context).pop(false),

@@ -75,7 +75,7 @@ class NoteListItem extends StatelessWidget {
           toast.Fluttertoast.showToast(
               msg: "Text Copied",
               toastLength: toast.Toast.LENGTH_SHORT,
-              gravity: toast.ToastGravity.BOTTOM,
+              gravity: toast.ToastGravity.CENTER,
               timeInSecForIosWeb: 1,
               backgroundColor: Theme.of(context).primaryColor,
               textColor: Theme.of(context).accentColor,

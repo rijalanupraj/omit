@@ -62,7 +62,7 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
           context: context,
           builder: (context) => new AlertDialog(
             title: new Text('Are you sure?'),
-            content: new Text('Your changes made won\'t be save.'),
+            content: new Text('Changes made won\'t be save.'),
             actions: <Widget>[
               new FlatButton(
                 onPressed: () => Navigator.of(context).pop(false),
