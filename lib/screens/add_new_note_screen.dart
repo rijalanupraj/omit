@@ -1,10 +1,12 @@
 // External Import
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:hive/hive.dart';
 
 // Internal Import
 import '../providers/note.dart';
 import '../providers/notes.dart';
+import '../constants.dart';
 
 class AddNewNoteScreen extends StatefulWidget {
   static const String routeName = '/add-new-note-screen';
@@ -14,6 +16,7 @@ class AddNewNoteScreen extends StatefulWidget {
 
 class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
   final _form = GlobalKey<FormState>();
+
   Note _editedNote = Note(
       id: null,
       content: '',
@@ -32,6 +35,11 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
   }
 
   Future<bool> _onWillPop() async {
+    var themeBox = Hive.box(kSettingsBox);
+    var askDiscard = themeBox.get(kAskDiscard, defaultValue: true);
+    if (!askDiscard) {
+      return Future.value(true);
+    }
     return (await showDialog(
           context: context,
           builder: (context) => new AlertDialog(
@@ -44,7 +52,7 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
               ),
               new FlatButton(
                 onPressed: () => Navigator.of(context).pop(true),
-                child: new Text('Yes'),
+                child: new Text('OK'),
               ),
             ],
           ),

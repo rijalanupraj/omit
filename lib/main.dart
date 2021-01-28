@@ -21,7 +21,7 @@ void main() async {
   final appDocumentDirectory =
       await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDirectory.path);
-  await Hive.openBox(kThemeBox);
+  await Hive.openBox(kSettingsBox);
   Hive.registerAdapter(NoteAdapter());
   return runApp(MyApp());
 }
@@ -36,16 +36,17 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: ValueListenableBuilder(
-        valueListenable: Hive.box(kThemeBox).listenable(),
+        valueListenable: Hive.box(kSettingsBox).listenable(),
         builder: (context, themeBox, widget) {
-          var darkTheme = themeBox.get('darkTheme', defaultValue: false);
+          var darkTheme = themeBox.get(kDarkTheme, defaultValue: false);
           return MaterialApp(
             theme: darkTheme
                 ? ThemeData.dark().copyWith(
-                    accentColor: Color(0xFFEA80FC),
+                    // accentColor: Color(0xFFEA80FC),
+                    accentColor: Colors.amber,
                   )
                 : ThemeData.light().copyWith(
-                    accentColor: Colors.amber,
+                    accentColor: Colors.orange,
                     primaryColor: Colors.lightBlue[800],
                     brightness: Brightness.light,
                     errorColor: Colors.red[300],

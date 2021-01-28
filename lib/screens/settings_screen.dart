@@ -15,12 +15,16 @@ class SettingScreen extends StatefulWidget {
 
 class _SettingScreenState extends State<SettingScreen> {
   var darkTheme = true;
+  var askDelete = true;
+  var askDiscard = true;
 
   @override
   void initState() {
-    var themeBox = Hive.box(kThemeBox);
+    var themeBox = Hive.box(kSettingsBox);
     setState(() {
-      darkTheme = themeBox.get('darkTheme', defaultValue: false);
+      darkTheme = themeBox.get(kDarkTheme, defaultValue: false);
+      askDelete = themeBox.get(kAskDelete, defaultValue: true);
+      askDiscard = themeBox.get(kAskDiscard, defaultValue: true);
     });
     super.initState();
   }
@@ -37,7 +41,7 @@ class _SettingScreenState extends State<SettingScreen> {
           Container(
             padding: EdgeInsets.all(20.0),
             child: Text(
-              'Write something here',
+              'Your Custom Configuration',
             ),
           ),
           Expanded(
@@ -46,12 +50,35 @@ class _SettingScreenState extends State<SettingScreen> {
                 SwitchListTile(
                   title: Text('Dark Theme'),
                   value: darkTheme,
-                  subtitle: Text('More info about'),
+                  subtitle: Text('Light or Dark?'),
                   onChanged: (value) {
                     setState(() {
                       darkTheme = value;
                     });
-                    Hive.box(kThemeBox).put('darkTheme', darkTheme);
+                    Hive.box(kSettingsBox).put(kDarkTheme, darkTheme);
+                  },
+                ),
+                SwitchListTile(
+                  title: Text('Ask On Delete'),
+                  value: askDelete,
+                  subtitle: Text('Show Alert Before Performing Delete'),
+                  onChanged: (value) {
+                    setState(() {
+                      askDelete = value;
+                    });
+                    Hive.box(kSettingsBox).put(kAskDelete, askDelete);
+                  },
+                ),
+                SwitchListTile(
+                  title: Text('Ask on Navigation Back'),
+                  value: askDiscard,
+                  subtitle: Text(
+                      'Will ask to DISCARD changes while eidting or creating note.'),
+                  onChanged: (value) {
+                    setState(() {
+                      askDiscard = value;
+                    });
+                    Hive.box(kSettingsBox).put(kAskDiscard, askDiscard);
                   },
                 ),
               ],

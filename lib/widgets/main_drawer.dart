@@ -18,7 +18,10 @@ class MainDrawer extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            leading: Icon(Icons.settings),
+            leading: Icon(
+              Icons.note,
+              color: Theme.of(context).accentColor,
+            ),
             title: Text(
               'Notes',
               style: kAppBarListTextStyle,
@@ -29,7 +32,10 @@ class MainDrawer extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            leading: Icon(Icons.settings),
+            leading: Icon(
+              Icons.settings,
+              color: Theme.of(context).accentColor,
+            ),
             title: Text(
               'Settings',
               style: kAppBarListTextStyle,

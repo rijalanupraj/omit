@@ -1,10 +1,12 @@
 // External Import
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:hive/hive.dart';
 
 // Internal Import
 import '../providers/note.dart';
 import '../providers/notes.dart';
+import '../constants.dart';
 
 class EditNoteScreen extends StatefulWidget {
   static const String routeName = '/edit-note-screen';
@@ -58,6 +60,11 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
   }
 
   Future<bool> _onWillPop() async {
+    var themeBox = Hive.box(kSettingsBox);
+    var askDiscard = themeBox.get(kAskDiscard, defaultValue: true);
+    if (!askDiscard) {
+      return Future.value(true);
+    }
     return (await showDialog(
           context: context,
           builder: (context) => new AlertDialog(
@@ -70,7 +77,7 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
               ),
               new FlatButton(
                 onPressed: () => Navigator.of(context).pop(true),
-                child: new Text('Yes'),
+                child: new Text('OK'),
               ),
             ],
           ),
