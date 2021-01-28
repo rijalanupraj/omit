@@ -32,6 +32,9 @@ class _AddNewNoteScreenState extends State<AddNewNoteScreen> {
   }
 
   Future<bool> _onWillPop() async {
+    if (_editedNote.content == '' && _editedNote.title == '') {
+      return true;
+    }
     return (await showDialog(
           context: context,
           builder: (context) => new AlertDialog(

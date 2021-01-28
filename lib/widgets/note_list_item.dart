@@ -1,6 +1,8 @@
 // External Import
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart' as toast;
 
 // Internal Import
 import '../providers/notes.dart';
@@ -67,6 +69,18 @@ class NoteListItem extends StatelessWidget {
         Provider.of<Notes>(context, listen: false).deleteNote(currentNote.id);
       },
       child: InkWell(
+        onLongPress: () {
+          Clipboard.setData(ClipboardData(
+              text: "${currentNote.title}\n${currentNote.content}"));
+          toast.Fluttertoast.showToast(
+              msg: "Text Copied",
+              toastLength: toast.Toast.LENGTH_SHORT,
+              gravity: toast.ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Theme.of(context).primaryColor,
+              textColor: Theme.of(context).accentColor,
+              fontSize: 16.0);
+        },
         onTap: () => Navigator.of(context)
             .pushNamed(EditNoteScreen.routeName, arguments: currentNote.id),
         child: Card(
