@@ -98,8 +98,19 @@ class NoteListItem extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.all(8),
             child: ListTile(
-              title: Text(currentNote.title),
-              subtitle: Text(limitText(currentNote.content)),
+              title: Text(
+                currentNote.title,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: Text(
+                limitText(currentNote.content),
+                style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
               trailing: Consumer<Note>(
                 builder: (context, note, child) {
                   return IconButton(

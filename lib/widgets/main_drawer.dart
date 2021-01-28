@@ -32,7 +32,7 @@ class MainDrawer extends StatelessWidget {
                     'Clear Your Mind',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.baloo(
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).errorColor,
                         fontSize: 18.0,
                         fontWeight: FontWeight.normal),
                   ),

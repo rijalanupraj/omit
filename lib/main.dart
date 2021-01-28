@@ -42,8 +42,8 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             theme: darkTheme
                 ? ThemeData.dark().copyWith(
-                    // accentColor: Color(0xFFEA80FC),
                     accentColor: Colors.amber,
+                    brightness: Brightness.dark,
                   )
                 : ThemeData.light().copyWith(
                     accentColor: Colors.orange,
