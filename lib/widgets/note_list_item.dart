@@ -11,12 +11,9 @@ class NoteListItem extends StatelessWidget {
   String limitText(String currentText) {
     String modifiedText = '';
     List textList = currentText.split('\n');
-    print(textList);
     if (textList[0] != '') {
       modifiedText = textList[0];
     }
-    print(modifiedText);
-    print(modifiedText);
     if (modifiedText.length > 50) {
       modifiedText = modifiedText.substring(0, 50);
       modifiedText += '  ......';
@@ -27,51 +24,51 @@ class NoteListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final currentNote = Provider.of<Note>(context, listen: false);
-    return InkWell(
-      onTap: () => Navigator.of(context)
-          .pushNamed(EditNoteScreen.routeName, arguments: currentNote.id),
-      child: Dismissible(
-        key: ValueKey(currentNote.id),
-        background: Container(
-          color: Theme.of(context).errorColor,
-          child: Icon(
-            Icons.delete,
-            color: Colors.white,
-            size: 40.0,
-          ),
-          alignment: Alignment.centerRight,
-          padding: EdgeInsets.only(
-            right: 20,
-          ),
-          margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+    return Dismissible(
+      key: ValueKey(currentNote.id),
+      background: Container(
+        color: Theme.of(context).errorColor,
+        child: Icon(
+          Icons.delete,
+          color: Colors.white,
+          size: 40.0,
         ),
-        direction: DismissDirection.endToStart,
-        confirmDismiss: (direction) {
-          return showDialog(
-            context: context,
-            builder: (ctx) => AlertDialog(
-              title: Text('Are you sure?'),
-              content: Text('Do you want to delete the note permanantely?'),
-              actions: [
-                FlatButton(
-                  child: Text('No'),
-                  onPressed: () {
-                    Navigator.of(ctx).pop(false);
-                  },
-                ),
-                FlatButton(
-                  child: Text('Yes'),
-                  onPressed: () {
-                    Navigator.of(ctx).pop(true);
-                  },
-                ),
-              ],
-            ),
-          );
-        },
-        onDismissed: (direction) {
-          Provider.of<Notes>(context, listen: false).deleteNote(currentNote.id);
-        },
+        alignment: Alignment.centerRight,
+        padding: EdgeInsets.only(
+          right: 20,
+        ),
+        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+      ),
+      direction: DismissDirection.endToStart,
+      confirmDismiss: (direction) {
+        return showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Text('Are you sure?'),
+            content: Text('Do you want to delete the note permanantely?'),
+            actions: [
+              FlatButton(
+                child: Text('No'),
+                onPressed: () {
+                  Navigator.of(ctx).pop(false);
+                },
+              ),
+              FlatButton(
+                child: Text('Yes'),
+                onPressed: () {
+                  Navigator.of(ctx).pop(true);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+      onDismissed: (direction) {
+        Provider.of<Notes>(context, listen: false).deleteNote(currentNote.id);
+      },
+      child: InkWell(
+        onTap: () => Navigator.of(context)
+            .pushNamed(EditNoteScreen.routeName, arguments: currentNote.id),
         child: Card(
           margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
           child: Padding(

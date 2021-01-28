@@ -11,6 +11,7 @@ class AllNotesScreen extends StatelessWidget {
   static const String routeName = '/all-notes-screen';
   @override
   Widget build(BuildContext context) {
+    Provider.of<Notes>(context).getItem();
     final loadedNotes = Provider.of<Notes>(context).items;
 
     return ListView.builder(

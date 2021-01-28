@@ -11,6 +11,7 @@ class FavoriteNotesScreen extends StatelessWidget {
   static const String routeName = '/favorite-notes-screen';
   @override
   Widget build(BuildContext context) {
+    Provider.of<Notes>(context).getItem();
     final loadedNotes = Provider.of<Notes>(context).favoriteItems;
 
     return ListView.builder(
