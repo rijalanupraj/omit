@@ -50,6 +50,7 @@ class Notes with ChangeNotifier {
           title: newNote.title,
           isFavorite: newNote.isFavorite);
       _items[noteIndex] = note;
+      print(note.content);
       notifyListeners();
     }
   }

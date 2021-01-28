@@ -8,6 +8,22 @@ import '../providers/note.dart';
 import '../screens/edit_note_screen.dart';
 
 class NoteListItem extends StatelessWidget {
+  String limitText(String currentText) {
+    String modifiedText = '';
+    List textList = currentText.split('\n');
+    print(textList);
+    if (textList[0] != '') {
+      modifiedText = textList[0];
+    }
+    print(modifiedText);
+    print(modifiedText);
+    if (modifiedText.length > 50) {
+      modifiedText = modifiedText.substring(0, 50);
+      modifiedText += '  ......';
+    }
+    return modifiedText;
+  }
+
   @override
   Widget build(BuildContext context) {
     final currentNote = Provider.of<Note>(context, listen: false);
@@ -62,7 +78,7 @@ class NoteListItem extends StatelessWidget {
             padding: EdgeInsets.all(8),
             child: ListTile(
               title: Text(currentNote.title),
-              subtitle: Text(currentNote.content),
+              subtitle: Text(limitText(currentNote.content)),
               trailing: Consumer<Note>(
                 builder: (context, note, child) {
                   return IconButton(
