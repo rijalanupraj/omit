@@ -1,8 +1,10 @@
 // External Import
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 // Internal Import
 import '../widgets/main_drawer.dart';
+import 'package:omit/constants.dart';
 
 class SettingScreen extends StatefulWidget {
   static const String routeName = '/settings-screen';
@@ -12,18 +14,22 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  var currentValue = true;
+  var darkTheme = true;
+
+  @override
+  void initState() {
+    var themeBox = Hive.box(kThemeBox);
+    setState(() {
+      darkTheme = themeBox.get('darkTheme', defaultValue: false);
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Settings'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.save),
-            onPressed: () {},
-          )
-        ],
       ),
       drawer: MainDrawer(),
       body: Column(
@@ -39,12 +45,13 @@ class _SettingScreenState extends State<SettingScreen> {
               children: <Widget>[
                 SwitchListTile(
                   title: Text('Dark Theme'),
-                  value: currentValue,
+                  value: darkTheme,
                   subtitle: Text('More info about'),
                   onChanged: (value) {
                     setState(() {
-                      currentValue = value;
+                      darkTheme = value;
                     });
+                    Hive.box(kThemeBox).put('darkTheme', darkTheme);
                   },
                 ),
               ],
