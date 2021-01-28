@@ -96,8 +96,10 @@ class NoteListItem extends StatelessWidget {
                     icon: note.isFavorite
                         ? Icon(Icons.favorite)
                         : Icon(Icons.favorite_border_outlined),
-                    onPressed: () {
-                      note.toggleFavorite();
+                    onPressed: () async {
+                      await Provider.of<Notes>(context, listen: false)
+                          .toggleFavoriteHive(
+                              currentNote.id, currentNote, !note.isFavorite);
                     },
                   );
                 },

@@ -4,6 +4,7 @@ import 'package:hive/hive.dart';
 
 // Internal Import
 import '../providers/note.dart';
+import '../constants.dart';
 
 class Notes with ChangeNotifier {
   List<Note> _items = [];
@@ -13,7 +14,7 @@ class Notes with ChangeNotifier {
   }
 
   void getItem() async {
-    final box = await Hive.openBox<Note>('Note');
+    final box = await Hive.openBox<Note>(kHiveNoteMainLocation);
     _items = box.values.toList();
     notifyListeners();
   }
@@ -34,7 +35,7 @@ class Notes with ChangeNotifier {
       dateUpdated: curretDateTime,
       title: newNote.title,
     );
-    final box = await Hive.openBox<Note>('Note');
+    final box = await Hive.openBox<Note>(kHiveNoteMainLocation);
     box.add(note);
 
     // _items.insert(0, note); Prvious add
@@ -59,9 +60,9 @@ class Notes with ChangeNotifier {
           dateUpdated: DateTime.now(),
           title: newNote.title,
           isFavorite: newNote.isFavorite);
-      final box = await Hive.openBox<Note>('Note');
+      final box = await Hive.openBox<Note>(kHiveNoteMainLocation);
       box.putAt(noteIndex, note);
-      _items[noteIndex] = note; // Previous update
+      // _items[noteIndex] = note; // Previous update
       notifyListeners();
     }
   }
@@ -69,9 +70,26 @@ class Notes with ChangeNotifier {
   Future<void> deleteNote(String id) async {
     final noteIndex = _items.indexWhere((note) => note.id == id);
     _items.removeAt(noteIndex);
-    final box = await Hive.openBox<Note>('Note');
+    final box = await Hive.openBox<Note>(kHiveNoteMainLocation);
     await box.deleteAt(noteIndex);
     getItem();
     notifyListeners();
+  }
+
+  Future<void> toggleFavoriteHive(
+      String id, Note currentNote, bool isFavorite) async {
+    final noteIndex = _items.indexWhere((note) => note.id == id);
+    if (noteIndex >= 0) {
+      Note note = Note(
+          id: currentNote.id,
+          content: currentNote.content,
+          dateCreated: currentNote.dateCreated,
+          dateUpdated: currentNote.dateUpdated,
+          title: currentNote.title,
+          isFavorite: isFavorite);
+      final box = await Hive.openBox<Note>(kHiveNoteMainLocation);
+      box.putAt(noteIndex, note);
+      // _items[noteIndex] = note; // Previous update
+    }
   }
 }
