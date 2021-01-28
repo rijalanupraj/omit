@@ -40,7 +40,16 @@ class MyApp extends StatelessWidget {
         builder: (context, themeBox, widget) {
           var darkTheme = themeBox.get('darkTheme', defaultValue: false);
           return MaterialApp(
-            theme: darkTheme ? ThemeData.dark() : ThemeData.light(),
+            theme: darkTheme
+                ? ThemeData.dark().copyWith(
+                    accentColor: Color(0xFFEA80FC),
+                  )
+                : ThemeData.light().copyWith(
+                    accentColor: Colors.amber,
+                    primaryColor: Colors.lightBlue[800],
+                    brightness: Brightness.light,
+                    errorColor: Colors.red[300],
+                  ),
             initialRoute: TabsScreen.routeName,
             routes: {
               TabsScreen.routeName: (context) => TabsScreen(),

@@ -94,8 +94,13 @@ class NoteListItem extends StatelessWidget {
                 builder: (context, note, child) {
                   return IconButton(
                     icon: note.isFavorite
-                        ? Icon(Icons.favorite)
-                        : Icon(Icons.favorite_border_outlined),
+                        ? Icon(
+                            Icons.favorite,
+                            color: Colors.pinkAccent,
+                            size: 20,
+                          )
+                        : Icon(Icons.favorite_border_outlined,
+                            color: Colors.pinkAccent),
                     onPressed: () async {
                       await Provider.of<Notes>(context, listen: false)
                           .toggleFavoriteHive(
