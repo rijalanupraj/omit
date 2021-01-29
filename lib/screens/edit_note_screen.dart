@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 
 // Internal Import
 import '../providers/note.dart';
@@ -155,10 +156,42 @@ class _EditNoteScreenState extends State<EditNoteScreen> {
                         isFavorite: _editedNote.isFavorite);
                   },
                 ),
+                SizedBox(
+                  height: 20,
+                ),
+                DateTimeShow(
+                    label: 'Date Created: ', time: _editedNote.dateCreated),
+                DateTimeShow(
+                    label: 'Date Updated: ', time: _editedNote.dateUpdated),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class DateTimeShow extends StatelessWidget {
+  final DateTime time;
+  final String label;
+
+  const DateTimeShow({this.time, this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        children: [
+          Text(
+            label,
+            style: TextStyle(
+              color: Colors.green,
+              fontSize: 15,
+            ),
+          ),
+          Text('${DateFormat.yMd().add_jm().format(time)}')
+        ],
       ),
     );
   }
