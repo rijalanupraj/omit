@@ -1,5 +1,6 @@
 // Package Import
 import 'package:flutter/material.dart';
+import 'package:omit/screens/archive_note_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:hive/hive.dart';
@@ -59,6 +60,7 @@ class MyApp extends StatelessWidget {
               FavoriteNotesScreen.routeName: (context) => FavoriteNotesScreen(),
               AddNewNoteScreen.routeName: (context) => AddNewNoteScreen(),
               EditNoteScreen.routeName: (context) => EditNoteScreen(),
+              ArchiveNoteScreen.routeName: (context) => ArchiveNoteScreen(),
             },
           );
         },

@@ -88,4 +88,44 @@ class Notes with ChangeNotifier {
       await box.putAt(noteIndex, note);
     }
   }
+
+  /*
+    This part is for the archieved Notes
+  */
+  List<Note> _archiveNotes = [];
+
+  List<Note> get archiveNotes {
+    print(_archiveNotes);
+    return [..._archiveNotes];
+  }
+
+  void getArchiveNotes() async {
+    final box = await Hive.openBox<Note>(kHiveNoteArchiveLocation);
+    _archiveNotes = box.values.toList();
+    print(_archiveNotes);
+    notifyListeners();
+  }
+
+  void archiveNote(String id, Note note) async {
+    // Removing from Note Box
+    deleteNote(id);
+    // Adding to Archive BOx
+    final box = await Hive.openBox<Note>(kHiveNoteArchiveLocation);
+    box.add(note);
+    print("hello");
+    notifyListeners();
+  }
+
+  void unArchiveNote(String id, Note note) async {
+    // Removing from Archive Box
+    final noteIndex = _archiveNotes.indexWhere((note) => note.id == id);
+    _archiveNotes.removeAt(noteIndex);
+    final box = await Hive.openBox<Note>(kHiveNoteArchiveLocation);
+    await box.deleteAt(noteIndex);
+
+    // Adding to noteBox
+    final noteBox = await Hive.openBox<Note>(kHiveNoteMainLocation);
+    noteBox.add(note);
+    notifyListeners();
+  }
 }

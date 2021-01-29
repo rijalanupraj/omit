@@ -1,6 +1,5 @@
 // External Import
 import 'package:flutter/material.dart';
-import 'package:omit/widgets/dismiss_swipe_background.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart' as toast;
@@ -11,8 +10,9 @@ import '../providers/notes.dart';
 import '../providers/note.dart';
 import '../screens/edit_note_screen.dart';
 import '../constants.dart';
+import '../widgets/dismiss_swipe_background.dart';
 
-class NoteListItem extends StatelessWidget {
+class ArchiveNoteItem extends StatelessWidget {
   String limitText(String currentText) {
     String modifiedText = '';
     List textList = currentText.split('\n');
@@ -42,7 +42,7 @@ class NoteListItem extends StatelessWidget {
       ),
       secondaryBackground: DismissSwipeBackground(
         backgroundColor: Colors.green,
-        icon: Icons.archive,
+        icon: Icons.unarchive,
         isLeft: false,
         iconColor: Colors.white,
       ),
@@ -86,63 +86,25 @@ class NoteListItem extends StatelessWidget {
         }
         if (direction == DismissDirection.endToStart) {
           Provider.of<Notes>(context, listen: false)
-              .archiveNote(currentNote.id, currentNote);
+              .unArchiveNote(currentNote.id, currentNote);
         }
       },
-      child: InkWell(
-        onLongPress: () {
-          Clipboard.setData(ClipboardData(
-              text: "${currentNote.title}\n${currentNote.content}"));
-          toast.Fluttertoast.showToast(
-              msg: "Text Copied",
-              toastLength: toast.Toast.LENGTH_SHORT,
-              gravity: toast.ToastGravity.CENTER,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Theme.of(context).primaryColor,
-              textColor: Theme.of(context).accentColor,
-              fontSize: 16.0);
-        },
-        onTap: () => Navigator.of(context)
-            .pushNamed(EditNoteScreen.routeName, arguments: currentNote.id),
-        child: Card(
-          margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-          child: Padding(
-            padding: EdgeInsets.all(8),
-            child: ListTile(
-              title: Text(
-                currentNote.title,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+      child: Card(
+        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+        child: Padding(
+          padding: EdgeInsets.all(8),
+          child: ListTile(
+            title: Text(
+              currentNote.title,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
               ),
-              subtitle: Text(
-                limitText(currentNote.content),
-                style: TextStyle(
-                  fontWeight: FontWeight.normal,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-              trailing: Consumer<Note>(
-                builder: (context, note, child) {
-                  return IconButton(
-                    icon: note.isFavorite
-                        ? Icon(
-                            Icons.favorite,
-                            color: Theme.of(context).accentColor,
-                            size: 30,
-                          )
-                        : Icon(
-                            Icons.favorite_border_outlined,
-                            color: Theme.of(context).accentColor,
-                            size: 30,
-                          ),
-                    onPressed: () async {
-                      await Provider.of<Notes>(context, listen: false)
-                          .toggleFavoriteHive(
-                              currentNote.id, currentNote, !note.isFavorite);
-                    },
-                  );
-                },
+            ),
+            subtitle: Text(
+              limitText(currentNote.content),
+              style: TextStyle(
+                fontWeight: FontWeight.normal,
+                fontStyle: FontStyle.italic,
               ),
             ),
           ),
