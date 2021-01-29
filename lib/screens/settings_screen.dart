@@ -74,7 +74,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   title: Text('Show Confirmation While Editing'),
                   value: askDiscard,
                   subtitle: Text(
-                      'Will ask you Confiramtion while Navigating back\n-From New Note Screen\nOr Eidt Note Screen'),
+                      'Will ask you Confiramtion while Navigating back from New/Edit Note Screen'),
                   onChanged: (value) {
                     setState(() {
                       askDiscard = value;
