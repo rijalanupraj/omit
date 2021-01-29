@@ -95,14 +95,12 @@ class Notes with ChangeNotifier {
   List<Note> _archiveNotes = [];
 
   List<Note> get archiveNotes {
-    print(_archiveNotes);
     return [..._archiveNotes];
   }
 
   void getArchiveNotes() async {
     final box = await Hive.openBox<Note>(kHiveNoteArchiveLocation);
     _archiveNotes = box.values.toList();
-    print(_archiveNotes);
     notifyListeners();
   }
 
@@ -112,7 +110,6 @@ class Notes with ChangeNotifier {
     // Adding to Archive BOx
     final box = await Hive.openBox<Note>(kHiveNoteArchiveLocation);
     box.add(note);
-    print("hello");
     notifyListeners();
   }
 
