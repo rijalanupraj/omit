@@ -79,7 +79,8 @@ class ArchiveNoteItem extends StatelessWidget {
       },
       onDismissed: (direction) {
         if (direction == DismissDirection.startToEnd) {
-          Provider.of<Notes>(context, listen: false).deleteNote(currentNote.id);
+          Provider.of<Notes>(context, listen: false)
+              .deleteArchiveNote(currentNote.id);
         }
         if (direction == DismissDirection.endToStart) {
           Provider.of<Notes>(context, listen: false)

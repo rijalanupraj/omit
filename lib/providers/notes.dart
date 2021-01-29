@@ -125,4 +125,11 @@ class Notes with ChangeNotifier {
     noteBox.add(note);
     notifyListeners();
   }
+
+  void deleteArchiveNote(String id) async {
+    final noteIndex = _archiveNotes.indexWhere((note) => note.id == id);
+    _archiveNotes.removeAt(noteIndex);
+    final box = await Hive.openBox<Note>(kHiveNoteArchiveLocation);
+    box.deleteAt(noteIndex);
+  }
 }
