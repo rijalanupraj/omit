@@ -1,14 +1,11 @@
 // External Import
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart' as toast;
 import 'package:hive/hive.dart';
 
 // Internal Import
 import '../providers/notes.dart';
 import '../providers/note.dart';
-import '../screens/edit_note_screen.dart';
 import '../constants.dart';
 import '../widgets/dismiss_swipe_background.dart';
 

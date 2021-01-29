@@ -17,7 +17,7 @@ class MainDrawer extends StatelessWidget {
           children: [
             DrawerHeader(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(

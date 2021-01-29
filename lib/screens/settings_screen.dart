@@ -59,9 +59,10 @@ class _SettingScreenState extends State<SettingScreen> {
                   },
                 ),
                 SwitchListTile(
-                  title: Text('Ask On Delete'),
+                  title: Text('Show Delete Confirmation'),
                   value: askDelete,
-                  subtitle: Text('Show Alert Before Performing Delete'),
+                  subtitle:
+                      Text('Show Alert Before Performing Delete Operation'),
                   onChanged: (value) {
                     setState(() {
                       askDelete = value;
@@ -70,10 +71,10 @@ class _SettingScreenState extends State<SettingScreen> {
                   },
                 ),
                 SwitchListTile(
-                  title: Text('Ask on Navigation Back'),
+                  title: Text('Show Confirmation While Editing'),
                   value: askDiscard,
                   subtitle: Text(
-                      'Will ask to DISCARD changes while eidting or creating note.'),
+                      'Will ask you Confiramtion while Navigating back\n-From New Note Screen\nOr Eidt Note Screen'),
                   onChanged: (value) {
                     setState(() {
                       askDiscard = value;
